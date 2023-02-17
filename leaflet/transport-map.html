@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Transport Leaflet Map</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="leaflet.css" />
+    <link rel="stylesheet" href="Control.OSMGeocoder.css" />
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>    
+</head>
+
+<body>
+    <script src="leaflet.js"></script>
+    <script src="Control.OSMGeocoder.js"></script>
+
+    <div id="map"></div>
+
+    <script>
+
+      var osmLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>',
+          ormLink = '<a href="http://www.openrailwaymap.org/">OpenRailwayMap</a>';
+        
+      var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          osmAttrib = '&copy; ' + osmLink + ' Contributors',
+          ormUrl = 'http://{s}.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png',
+          ormAttrib = '&copy; '+ osmLink +' Contributors' + ormLink;
+  
+      var osmMap = L.tileLayer(osmUrl, {attribution: osmAttrib}),
+          ormMap = L.tileLayer(ormUrl, {attribution: ormAttrib});
+
+      var map = L.map('map', {
+			    layers: [osmMap] }) // only add one!
+          .setView([37, -95], 4);
+
+      var baseLayers = {
+			    "OpenStreetMap": osmMap,
+		    };
+
+      var overlays = {
+            "OpenRaiwayMap": ormMap
+        };
+
+      L.control.layers(baseLayers,overlays).addTo(map);
+
+      var osmGeocoder = new L.Control.OSMGeocoder({
+                    collapsed: false,
+                    position: 'bottomright',
+                    text: 'Find!',
+			        });
+                map.addControl(osmGeocoder);
+
+    </script>
+</body>
+</html>

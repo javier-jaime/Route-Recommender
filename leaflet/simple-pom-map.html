@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple POM Map with Leaflet</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="leaflet.css" />
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <script src="leaflet.js"></script>
+    
+    <div id="map"></div>
+
+    <script>
+        var sites = [
+            ["GFI - Konedobu",-9.4662353,147.1587850],
+            ["Paradise Foods POM",-9.4455959,147.1872077],
+            ["Avenell Engineering Systems",-9.4449256,147.0886687],
+            ["East West/Agility Warehouse",-9.4167145,147.1315228],
+            ["GFI POM - Badili",-9.4776777,147.1784801],
+            ["EFM POM ICD",-9.4169487,147.0756054]
+        ];
+    
+        var map = L.map('map').setView([-9.44,	147.18], 12);
+        mapLink = 
+            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+        L.tileLayer(
+            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; ' + mapLink + ' Contributors',
+            maxZoom: 18,
+            }).addTo(map);    
+            
+                for (var i = 0; i < sites.length; i++) {
+			    marker = new L.marker([sites[i][1],sites[i][2]])
+			    	.bindPopup(sites[i][0])
+			    	.addTo(map);
+		        }
+
+                var polyline1 = L.polyline([
+                    [-9.4662353,147.158785],
+                    [-9.44559588,147.1872077]
+                    ],
+                    {    
+                    color: 'red',
+                    weight: 5,
+                    opacity: .7,
+                    dashArray: '20,15',
+                    lineJoin: 'round'
+                    }
+                    ).addTo(map);
+
+                    var polyline2 = L.polyline([
+                    [-9.4449256,147.0886687],
+                    [-9.4167145,147.1315228]
+                    ],
+                    {    
+                    color: 'blue',
+                    weight: 5,
+                    opacity: .7,
+                    dashArray: '20,15',
+                    lineJoin: 'round'
+                    }
+                    ).addTo(map);
+
+                    var polyline3 = L.polyline([
+                    [-9.4776777,147.1784801],
+                    [-9.4169487,147.0756054]
+                    ],
+                    {    
+                    color: 'green',
+                    weight: 5,
+                    opacity: .7,
+                    dashArray: '20,15',
+                    lineJoin: 'round'
+                    }
+                    ).addTo(map);
+
+    </script>
+</body>
+</html>
