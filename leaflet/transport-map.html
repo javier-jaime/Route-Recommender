@@ -58,6 +58,69 @@
 			        });
                 map.addControl(osmGeocoder);
 
+      var driver = neo4j.driver(         
+            // update the next two lines depending on your configuration         
+            'bolt://localhost:7687',         
+            neo4j.auth.basic('neo4j', 'ALTS-admin')     
+            );     
+            var session = driver.session();
+
+      var query = `
+MATCH (startNode:Junction {osmid: $startNodeOsmId })
+MATCH (endNode:Junction {osmid: $endNodeOsmId })
+CALL gds.shortestPath.astar.stream(
+        "road_network",
+        {
+            sourceNode: startNode, 
+            targetNode: endNode, 
+            latitudeProperty: 'latitude',
+            longitudeProperty: 'longitude',
+            relationshipWeightProperty: 'length'
+        }
+) YIELD nodeId, cost
+WITH gds.util.asNode(nodeId) as node, cost
+WITH collect(node) as path, collect(cost) as costs
+UNWIND range(0, size(path)-1) AS index
+WITH path[index] AS currentNode, path[index+1] AS nextNode
+MATCH (currentNode)-[r:LINKED_TO]-(nextNode) 
+RETURN r.name, r.geometry as wkt
+	  `;
+
+         // You can change start and end nodes here
+         var params = {
+	     "startNodeOsmId": "42428297",
+	     "endNodeOsmId": "42423674",
+         };
+
+         session
+	     .run(query, params)
+	     .then(function(result){
+		 let results = [];
+                 result.records.forEach(function(record) {
+		     let wkt = record.get("wkt");
+		     if (wkt !== null) {
+			 let geo = wellknown.parse(wkt);
+			 console.log(wkt);
+			 results.push(geo);
+		     }
+                 });
+		 return results;		     
+	     }).then(function(result) {
+		 // console.log(result);
+		 var myLayer = L.geoJSON(
+		     result,
+		     {
+			 "weight": 5,
+			 "color": "red",
+		     }
+		 ).addTo(map);
+		 map.fitBounds(myLayer.getBounds());
+	     }).then(function() {
+		 // we close the session and the connection to the graph
+		 session.close();
+		 driver.close();
+	     });
+
     </script>
 </body>
 </html>
