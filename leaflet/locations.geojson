@@ -1,0 +1,16 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "WATERFRONT FOODWORLD LTD - KONE" }, "geometry": { "type": "Point", "coordinates": [ 147.153294892017328, -9.468267924238749 ] } },
+{ "type": "Feature", "properties": { "name": "9 Mile Plaza" }, "geometry": { "type": "Point", "coordinates": [ 147.232932623382226, -9.41381759697949 ] } },
+{ "type": "Feature", "properties": { "name": "Paradise Foods POM" }, "geometry": { "type": "Point", "coordinates": [ 147.18720774908013, -9.44559587922322 ] } },
+{ "type": "Feature", "properties": { "name": "RH Hyper Mart" }, "geometry": { "type": "Point", "coordinates": [ 147.190174593948342, -9.446133442542754 ] } },
+{ "type": "Feature", "properties": { "name": "EFM POM ICD" }, "geometry": { "type": "Point", "coordinates": [ 147.075735425484197, -9.416158162780402 ] } },
+{ "type": "Feature", "properties": { "name": "Avenell Engineering Systems" }, "geometry": { "type": "Point", "coordinates": [ 147.088668672724253, -9.444925643847881 ] } },
+{ "type": "Feature", "properties": { "name": "East West/Agility Warehouse" }, "geometry": { "type": "Point", "coordinates": [ 147.131522812752536, -9.416714527772994 ] } },
+{ "type": "Feature", "properties": { "name": "Patricks Transport" }, "geometry": { "type": "Point", "coordinates": [ 147.179597151468499, -9.487945242439283 ] } },
+{ "type": "Feature", "properties": { "name": "GFI - Konedobu" }, "geometry": { "type": "Point", "coordinates": [ 147.158784954382725, -9.466235344496987 ] } },
+{ "type": "Feature", "properties": { "name": "GFI POM- Badili" }, "geometry": { "type": "Point", "coordinates": [ 147.178480076976996, -9.47767768862742 ] } }
+]
+}
